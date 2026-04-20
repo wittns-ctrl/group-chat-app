@@ -23,7 +23,7 @@ io.on("connection",(socket)=>{
     socket.broadcast.emit("message","A new user has joined the chart")
  // listen for chat message
     socket.on("chatmessage",(msg)=>{
-        console.log(msg)
+    io.emit("message",msg)
     })
 
     //when a user disconnects 
