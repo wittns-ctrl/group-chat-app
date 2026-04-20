@@ -20,19 +20,18 @@ if(input.value){
     input.value = ""
 }
 })
-
 })
 
 //messaeg display function
 
-function displaymessage(message){
+function displaymessage(messages){
 
     const div = document.createElement('div')
     div.classList.add("message")
     div.innerHTML = `
-    <p class="meta">Brad <span>9:12pm</span></p>
+    <p class="meta">${messages.username} <span>${messages.time}</span></p>
 						<p class="text">
-						 ${message}
+						 ${messages.message}
 						</p>
     `
     document.querySelector(".chat-messages").appendChild(div)

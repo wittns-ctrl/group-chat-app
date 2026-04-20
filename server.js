@@ -5,6 +5,7 @@ import path from "path"
 import http from "http"
 import express from "express"
 import {Server} from "socket.io"
+import msgFormat from "./utils/message.js"
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -13,22 +14,23 @@ app.use(express.static(path.join(__dirname,"publice")))
 const PORT = process.env.PORT || 3000
 
 const server = http.createServer(app)
+const chatbot = "ChartCod bot"
 
 const io = new Server(server);
 io.on("connection",(socket)=>{
     // welcome message
-    socket.emit("message","Welcome on ChartCord!")
+    socket.emit("message",msgFormat(chatbot,"Welcome on ChartCord!"))
 
     // when a new user connects
-    socket.broadcast.emit("message","A new user has joined the chart")
+    socket.broadcast.emit("message",msgFormat(chatbot,"A new user has joined the chart"))
  // listen for chat message
     socket.on("chatmessage",(msg)=>{
-    io.emit("message",msg)
+    io.emit("message",msgFormat("USER",msg))
     })
 
     //when a user disconnects 
      socket.on("disconnect",()=>{
-      io.emit("message","user left chartCord")
+      io.emit("message",msgFormat(chatbot,"user left chartCord"))
             })  
 })
 
