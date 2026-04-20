@@ -21,6 +21,10 @@ io.on("connection",(socket)=>{
 
     // when a new user connects
     socket.broadcast.emit("message","A new user has joined the chart")
+ // listen for chat message
+    socket.on("chatmessage",(msg)=>{
+        console.log(msg)
+    })
 
     //when a user disconnects 
      socket.on("disconnect",()=>{
